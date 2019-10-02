@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
 {
-    // Code From Unity Youtube Channel: https://www.youtube.com/watch?v=7C7WWxUxPZE
     private Rigidbody rb;
     public float speed;
+    
+    float side;
+    float forwardBackward;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 position = new Vector3(moveHorizontal, 0, moveVertical);
-
-        rb.AddTorque(position * speed);
+        
+        side = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        forwardBackward = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        transform.position = transform.position + new Vector3(side,0, forwardBackward);
     }
 }
